@@ -1,0 +1,372 @@
+---
+---
+
+@charset "utf-8";
+
+// ── Palette ───────────────────────────────────────────────────────────────
+$background-color:   #0b0905;
+$surface-color:      #120f0a;
+$border-color:       #2a2218;
+$text-color:         #c4b49a;
+$muted-color:        #5a4e3e;
+$heading-color:      #e8dcc8;
+$accent-color:       #8b1c1c;
+$gold-color:         #b89a3a;
+$link-color:         #b89a3a;
+$link-hover-color:   #e8c86a;
+$code-bg:            #0e0b07;
+
+// ── Typography ────────────────────────────────────────────────────────────
+$base-font-family:   'EB Garamond', Georgia, serif;
+$base-font-size:     17px;
+$base-line-height:   1.8;
+$spacing-unit:       2rem;
+$content-width:      740px;
+
+@import "minima";
+
+// ════════════════════════════════════════════════════════════════════════════
+//  BASE
+// ════════════════════════════════════════════════════════════════════════════
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: $background-color;
+  color: $text-color;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-line-height;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+// Scanlines overlay
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.06) 0px,
+    rgba(0, 0, 0, 0.06) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+// Vignette
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  TYPOGRAPHY
+// ════════════════════════════════════════════════════════════════════════════
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', 'Times New Roman', serif;
+  color: $heading-color;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: .01em;
+  margin-top: 2rem;
+  margin-bottom: .7rem;
+}
+
+h1 { font-size: 2.1rem; font-style: italic; }
+h2 {
+  font-size: 1.45rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid $border-color;
+}
+h3 { font-size: 1.15rem; color: $gold-color; }
+
+p { margin-bottom: 1.3rem; }
+
+a {
+  color: $link-color;
+  text-decoration: underline;
+  text-decoration-color: rgba(184,154,58,.35);
+  text-underline-offset: 3px;
+  transition: color .15s, text-decoration-color .15s;
+
+  &:hover {
+    color: $link-hover-color;
+    text-decoration-color: $link-hover-color;
+  }
+}
+
+strong { color: $heading-color; font-weight: 600; }
+
+em { color: darken($text-color, 5%); }
+
+hr {
+  border: none;
+  text-align: center;
+  color: $muted-color;
+  margin: 2.5rem 0;
+
+  &::before {
+    content: '— ✦ —';
+    font-family: 'Playfair Display', serif;
+    letter-spacing: .2em;
+    font-size: .85rem;
+  }
+}
+
+blockquote {
+  border-left: 2px solid $gold-color;
+  margin: 1.8rem 0;
+  padding: .8rem 1.5rem;
+  color: $muted-color;
+  font-style: italic;
+  font-size: 1.05rem;
+  background: $surface-color;
+
+  p { margin: 0; }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  CODE
+// ════════════════════════════════════════════════════════════════════════════
+
+code, pre {
+  font-family: 'Courier Prime', 'Courier New', monospace;
+  font-size: .875rem;
+}
+
+code {
+  background: $code-bg;
+  color: $gold-color;
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  padding: .1em .35em;
+}
+
+pre {
+  background: $code-bg;
+  border: 1px solid $border-color;
+  border-left: 2px solid $gold-color;
+  padding: 1.2rem 1.5rem;
+  overflow-x: auto;
+  border-radius: 2px;
+
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #c4b49a;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  HEADER
+// ════════════════════════════════════════════════════════════════════════════
+
+.site-header {
+  background: $surface-color;
+  border-bottom: 1px solid $border-color;
+  border-top: 3px solid $accent-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: .9rem;
+    padding-bottom: .9rem;
+  }
+}
+
+.site-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-style: italic;
+  font-size: 1.25rem;
+  letter-spacing: .02em;
+  color: $heading-color !important;
+  text-decoration: none !important;
+
+  &:hover { color: $gold-color !important; }
+}
+
+.site-nav {
+  background: transparent;
+  border: none;
+
+  .nav-trigger { display: none; }
+
+  .page-link {
+    font-family: 'EB Garamond', serif;
+    font-size: .9rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: $muted-color;
+    margin-left: 1.5rem;
+    text-decoration: none;
+
+    &:hover { color: $gold-color; }
+  }
+
+  @media (max-width: 600px) {
+    .trigger {
+      background: $surface-color;
+      border: 1px solid $border-color;
+      padding: .5rem 1rem;
+
+      .page-link { display: block; margin: .4rem 0; }
+    }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  CONTENT
+// ════════════════════════════════════════════════════════════════════════════
+
+.page-content { padding: 3rem 0; }
+
+.wrapper {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  POST LIST
+// ════════════════════════════════════════════════════════════════════════════
+
+.post-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  > li {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid $border-color;
+
+    &:first-child { border-top: 1px solid $border-color; }
+  }
+}
+
+.post-meta {
+  font-family: 'Courier Prime', monospace;
+  font-size: .78rem;
+  color: $muted-color;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: .3rem;
+}
+
+.post-link {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  font-style: italic;
+  color: $heading-color;
+  text-decoration: none;
+
+  &:hover { color: $gold-color; text-decoration: none; }
+}
+
+.post-excerpt {
+  font-size: .95rem;
+  color: $muted-color;
+  margin-top: .5rem;
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  POST PAGE
+// ════════════════════════════════════════════════════════════════════════════
+
+.post-header {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid $border-color;
+  text-align: center;
+}
+
+.post-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-style: italic;
+  color: $heading-color;
+  margin-bottom: .4rem;
+}
+
+.post-content {
+  img {
+    max-width: 100%;
+    border: 1px solid $border-color;
+    filter: sepia(15%) brightness(0.9);
+  }
+
+  ul, ol {
+    padding-left: 1.5rem;
+    li { margin-bottom: .3rem; }
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  FOOTER
+// ════════════════════════════════════════════════════════════════════════════
+
+.site-footer {
+  background: $surface-color;
+  border-top: 1px solid $border-color;
+  border-bottom: none;
+  padding: 2rem 0;
+  color: $muted-color;
+  font-family: 'EB Garamond', serif;
+  font-size: .9rem;
+
+  a { color: $muted-color; &:hover { color: $gold-color; } }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
+//  MISC
+// ════════════════════════════════════════════════════════════════════════════
+
+::selection { background: rgba(184,154,58,.25); color: $heading-color; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: $background-color; }
+::-webkit-scrollbar-thumb { background: $border-color; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: $gold-color; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .9rem;
+
+  th {
+    font-family: 'EB Garamond', serif;
+    text-transform: uppercase;
+    font-size: .8rem;
+    letter-spacing: .1em;
+    color: $gold-color;
+    border-bottom: 1px solid $gold-color;
+    padding: .5rem .8rem;
+    text-align: left;
+  }
+
+  td {
+    border-bottom: 1px solid $border-color;
+    padding: .5rem .8rem;
+  }
+}
