@@ -2,11 +2,10 @@ title: stzifkas dev blog
 email: ""
 description: >-
   Personal blog about software engineering, tech, and whatever I'm building.
-baseurl: "/stzifkas-blog"
+baseurl: ""
 url: "https://stzifkas.github.io"
 
-author:
-  name: stzifkas
+author: stzifkas
 
 theme: minima
 
