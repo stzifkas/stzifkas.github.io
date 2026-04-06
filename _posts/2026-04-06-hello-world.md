@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "Hello World"
+title: "The Owls Are Not What They Seem"
 date: 2026-04-06
 categories: meta
 ---
 
-First post. Starting this blog to document what I'm working on and thinking about.
+First post. The blog is called Fire Walk With Middleware. That should tell you enough about the tone.
+
+Writing about software, LLMs, and whatever I'm currently breaking or building. No schedule, no niche.
 
 More soon.
