@@ -26,7 +26,7 @@ layout: default
               {{ post.date | date: date_format }}
             </span>
             <h3 class="post-card__title">{{ post.title | escape }}</h3>
-            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+            <p class="post-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
           </div>
         </a>
       </li>

@@ -362,6 +362,12 @@ pre {
 
 .post-content {
   h2, h3, h4 { font-weight: 500; }
+
+  img {
+    max-height: 360px;
+    width: auto;
+    margin: 1.5rem auto;
+  }
 }
 
 // ════════════════════════════════════════════════════════════════════════════
