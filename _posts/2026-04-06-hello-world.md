@@ -3,6 +3,7 @@ layout: post
 title: "The Owls Are Not What They Seem"
 date: 2026-04-06
 categories: meta
+image: /assets/owls-are-not-what-they-seem.png
 ---
 
 ![Owls Are Not What They Seem](/assets/owls-are-not-what-they-seem.png)

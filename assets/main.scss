@@ -247,10 +247,61 @@ pre {
   margin: 0;
 
   > li {
-    padding: 1.3rem 0;
     border-bottom: 1px solid $border;
 
     &:last-child { border-bottom: none; }
+  }
+}
+
+.post-card {
+  display: flex;
+  gap: 1.4rem;
+  padding: 1.4rem 0;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover .post-card__title {
+    color: #fff;
+    text-decoration: underline;
+    text-decoration-color: $accent;
+  }
+
+  &__thumb {
+    flex-shrink: 0;
+    width: 130px;
+    height: 86px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+  }
+
+  &__title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: $heading;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+
+    &__thumb {
+      width: 100%;
+      height: 160px;
+    }
   }
 }
 
