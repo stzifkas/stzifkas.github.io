@@ -17,6 +17,11 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
 
+giscus:
+  repo_id: "R_kgDOR7CZCA"
+  category: "General"
+  category_id: "DIC_kwDOR7CZCM4C6RyX"
+
 # Exclude from build
 exclude:
   - Gemfile
