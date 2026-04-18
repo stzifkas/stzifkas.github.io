@@ -363,6 +363,16 @@ pre {
 .post-content {
   h2, h3, h4 { font-weight: 500; }
 
+  // MathJax 3: only *display* math is block-level. Do not style all mjx-container
+  // as block — that breaks inline $...$ (it would jump to the next line).
+  mjx-container[display="true"] {
+    display: block;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    margin: 1rem 0;
+  }
+
   img {
     max-height: 360px;
     width: auto;

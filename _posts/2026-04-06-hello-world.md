@@ -6,7 +6,7 @@ categories: meta
 image: /assets/owls-are-not-what-they-seem.png
 ---
 
-![Owls Are Not What They Seem](/assets/owls-are-not-what-they-seem.png)
+![The Owls Are Not What They Seem](/assets/owls-are-not-what-they-seem.png)
 
 First post. The blog is called Fire Walk With Middleware. That should tell you enough about the tone.
 
