@@ -14,4 +14,4 @@ This blog is where I write about what I'm building, reading, or trying to unders
 
 ---
 
-[GitHub](https://github.com/stzifkas) · [LinkedIn](https://linkedin.com/in/stzifkas) · [stzifkas@gmail.com](mailto:stzifkas@gmail.com)
+[GitHub](https://github.com/stzifkas) · [LinkedIn](https://linkedin.com/in/stzifkas) · [Substack](https://firewithmiddleware.substack.com/subscribe) · [stzifkas@gmail.com](mailto:stzifkas@gmail.com)
