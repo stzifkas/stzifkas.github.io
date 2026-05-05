@@ -124,7 +124,7 @@ The most interesting case is the repeated failure.
 
 Here’s the kind of raw test output we all know too well:
 
-```text id="vhlyoc"
+```
 ============================= test session starts ==============================
 platform linux -- Python 3.12.0, pytest-8.1.1, pluggy-1.4.0
 ... [40 lines of header + per-test output] ...
@@ -146,7 +146,7 @@ That’s 1,818 characters in the fixture.
 
 Sieve turns it into this:
 
-```text id="5tngfk"
+```
 PYTEST: 2 failed, 140 passed (142 total)
 FAIL tests/test_views.py::TestUserViewSet::test_user_update (test_views.py:89)
   expected 200, got 403
@@ -163,7 +163,7 @@ More readable, too.
 
 Then the agent fixes one test and runs the suite again. Now Sieve can emit a delta:
 
-```text id="0gnoqn"
+```
 PYTEST DELTA (turn 2)
 PASS tests/test_views.py::TestUserViewSet::test_user_update now passes
 STILL FAIL tests/test_views.py::TestUserViewSet::test_user_delete (line 102) - expected 204, got 403
@@ -212,7 +212,7 @@ The repair rate stayed the same in this small trial. I’m happy with that resul
 
 To reproduce:
 
-```bash id="j1n9ea"
+```bash
 bash scripts/run_cursor_swe_bench_profiles.sh --resume \
   --eval-with-harness --harness-namespace none
 
@@ -241,7 +241,7 @@ Sieve includes a benchmark path for CI-Repair-Bench, built from real GitHub Acti
 
 Run:
 
-```bash id="o0b53t"
+```bash
 uv sync --group swe-eval
 uv run python -m benchmarks.ci_repair_bench --compare --json
 ```
@@ -281,7 +281,7 @@ The library itself has no dependencies. The MCP proxy needs the optional `mcp` e
 
 The basic API is small:
 
-```python id="c15aoa"
+```python
 from sieve import CompressSession
 
 session = CompressSession()
@@ -300,7 +300,7 @@ print(result.stats.compression_ratio)
 
 There’s also a decorator:
 
-```python id="cur8cp"
+```python
 import subprocess
 from sieve import wrap_tool
 
@@ -314,7 +314,7 @@ Now `run_bash(...)` returns compressed output. The decorator holds the session.
 
 Configuration looks like this:
 
-```python id="qun68y"
+```python
 from sieve import CompressConfig, CompressSession, OutputFormat
 
 session = CompressSession(CompressConfig(
@@ -335,13 +335,13 @@ The MCP proxy is probably the cleanest integration.
 
 Install:
 
-```bash id="9d8sqz"
+```bash
 pip install 'sieve[mcp]'
 ```
 
 Example config:
 
-```json id="tszu20"
+```json
 {
   "mcpServers": {
     "sieve-demo": {

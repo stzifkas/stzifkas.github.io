@@ -353,6 +353,96 @@ pre {
 }
 
 // ════════════════════════════════════════════════════════════════════════════
+//  HOME SIDEBAR
+// ════════════════════════════════════════════════════════════════════════════
+
+.home-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.home-main {
+  min-width: 0;
+}
+
+.home-sidebar {
+  position: sticky;
+  top: 5.5rem;
+  border: 1px solid $border;
+  background: $surface;
+  padding: .95rem .9rem;
+}
+
+.home-sidebar__heading {
+  margin: 0 0 .75rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: $muted;
+}
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.project-list__item {
+  margin: 0;
+}
+
+.project-list__link {
+  display: block;
+  text-decoration: none;
+  border: 1px solid $border;
+  padding: .75rem .8rem;
+  transition: border-color .12s ease;
+
+  &:hover {
+    border-color: $accent;
+  }
+}
+
+.project-list__name {
+  display: block;
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 500;
+  color: $heading;
+  margin-bottom: .1rem;
+}
+
+.project-list__type {
+  display: block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .67rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: $muted;
+  margin-bottom: .35rem;
+}
+
+.project-list__desc {
+  display: block;
+  font-size: .84rem;
+  line-height: 1.55;
+  color: $text;
+}
+
+@media (max-width: 920px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .home-sidebar {
+    position: static;
+  }
+}
+
+// ════════════════════════════════════════════════════════════════════════════
 //  POST PAGE
 // ════════════════════════════════════════════════════════════════════════════
 

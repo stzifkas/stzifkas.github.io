@@ -8,32 +8,37 @@ layout: default
   {%- endif -%}
 
   {{ content }}
+  <div class="home-layout">
+    <main class="home-main">
+      {%- if site.posts.size > 0 -%}
+        <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
+        <ul class="post-list">
+          {%- for post in site.posts -%}
+          <li>
+            <a class="post-card" href="{{ post.url | relative_url }}">
+              {%- if post.image -%}
+              <div class="post-card__thumb">
+                <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+              </div>
+              {%- endif -%}
+              <div class="post-card__body">
+                <span class="post-meta">
+                  {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                  {{ post.date | date: date_format }}
+                </span>
+                <h3 class="post-card__title">{{ post.title | escape }}</h3>
+                <p class="post-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
+              </div>
+            </a>
+          </li>
+          {%- endfor -%}
+        </ul>
 
-  {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        <a class="post-card" href="{{ post.url | relative_url }}">
-          {%- if post.image -%}
-          <div class="post-card__thumb">
-            <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
-          </div>
-          {%- endif -%}
-          <div class="post-card__body">
-            <span class="post-meta">
-              {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-              {{ post.date | date: date_format }}
-            </span>
-            <h3 class="post-card__title">{{ post.title | escape }}</h3>
-            <p class="post-excerpt">{{ post.content | strip_html | truncatewords: 30 }}</p>
-          </div>
-        </a>
-      </li>
-      {%- endfor -%}
-    </ul>
+        <p class="rss-subscribe">subscribe <a href="https://firewithmiddleware.substack.com/subscribe">via Substack</a> or <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
+      {%- endif -%}
+    </main>
 
-    <p class="rss-subscribe">subscribe <a href="https://firewithmiddleware.substack.com/subscribe">via Substack</a> or <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
-  {%- endif -%}
+    {%- include projects_sidebar.html -%}
+  </div>
 
 </div>
