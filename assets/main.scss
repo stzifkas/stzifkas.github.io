@@ -356,15 +356,29 @@ pre {
 //  HOME SIDEBAR
 // ════════════════════════════════════════════════════════════════════════════
 
+// Break out of the narrow reading wrapper so the sidebar sits beside the
+// content column instead of squeezing it. Main column keeps $max-width;
+// sidebar lives in the gutter to the right.
+
+$sidebar-width: 240px;
+$sidebar-gap:   3rem;
+
 .home-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 240px;
-  gap: 2rem;
+  grid-template-columns: minmax(0, $max-width) $sidebar-width;
+  column-gap: $sidebar-gap;
   align-items: start;
+
+  width: calc(100vw - 3rem);
+  max-width: calc(#{$max-width} + #{$sidebar-width} + #{$sidebar-gap});
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .home-main {
   min-width: 0;
+  max-width: $max-width;
 }
 
 .home-sidebar {
@@ -431,10 +445,20 @@ pre {
   color: $text;
 }
 
-@media (max-width: 920px) {
+@media (max-width: 1080px) {
   .home-layout {
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    column-gap: 0;
+    row-gap: 1.25rem;
+
+    width: 100%;
+    max-width: $max-width;
+    left: auto;
+    transform: none;
+  }
+
+  .home-main {
+    max-width: 100%;
   }
 
   .home-sidebar {
