@@ -13,14 +13,18 @@
 //  VARIABLES
 // ════════════════════════════════════════════════════════════════════════════
 
-$bg:        #080808;
-$surface:   #0f0f0f;
-$border:    #1e1e1e;
-$text:      #c8c8c8;
-$muted:     #484848;
-$heading:   #f0f0f0;
-$accent:    #c41a1a;
-$max-width: 740px;
+$bg:         #080808;
+$surface:    #0f0f0f;
+$surface-2:  #161616;   // raised surface on hover
+$border:     #1e1e1e;
+$border-lit: #2c2c2c;   // border on hover/focus
+$text:       #d0d0d0;   // body — brighter for readability
+$dim:        #8c8c8c;   // secondary text (excerpts) — meets AA on $bg
+$muted:      #6e6e6e;   // de-emphasized labels/meta (was #484848 — failed contrast)
+$heading:    #f2f2f2;
+$accent:     #c41a1a;
+$accent-dim: rgba(196, 26, 26, .45);
+$max-width:  740px;
 
 // ════════════════════════════════════════════════════════════════════════════
 //  BASE
@@ -36,7 +40,46 @@ body {
   font-weight: 300;
   line-height: 1.75;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+// Respect users who prefer less motion.
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+// Keyboard focus — visible red ring, never shown for mouse users.
+:focus-visible {
+  outline: 2px solid $accent;
+  outline-offset: 2px;
+  border-radius: 1px;
+}
+
+// Skip-to-content link — hidden until focused.
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 200;
+  background: $accent;
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: .55rem .9rem;
+  transition: top .15s ease;
+
+  &:focus { top: .8rem; }
+}
+
+#content:focus { outline: none; }
 
 // ════════════════════════════════════════════════════════════════════════════
 //  TYPOGRAPHY
@@ -48,20 +91,22 @@ h1, h2, h3, h4, h5, h6 {
   color: $heading;
   line-height: 1.2;
   margin: 2rem 0 .7rem;
+  text-wrap: balance;
+  scroll-margin-top: 5rem; // so anchored headings clear the sticky header
 }
 
 h1 { font-size: 1.9rem; }
 h2 { font-size: 1.4rem; border-bottom: 1px solid $border; padding-bottom: .4rem; }
 h3 { font-size: 1.1rem; color: $text; }
 
-p { margin-bottom: 1.2rem; }
+p { margin-bottom: 1.2rem; text-wrap: pretty; }
 
 a {
   color: $heading;
   text-decoration: underline;
-  text-decoration-color: $border;
+  text-decoration-color: $accent-dim;
   text-underline-offset: 3px;
-  transition: color .1s, text-decoration-color .1s;
+  transition: color .12s ease, text-decoration-color .12s ease;
 
   &:hover {
     color: #fff;
@@ -191,8 +236,15 @@ pre {
     text-transform: uppercase;
     color: $muted;
     text-decoration: none;
+    transition: color .12s ease;
 
     &:hover { color: $heading; }
+
+    &--active {
+      color: $heading;
+      border-bottom: 1px solid $accent;
+      padding-bottom: .15rem;
+    }
   }
 
   // mobile
@@ -260,11 +312,17 @@ pre {
   padding: 1.4rem 0;
   text-decoration: none;
   color: inherit;
+  transition: background-color .15s ease;
 
   &:hover .post-card__title {
     color: #fff;
     text-decoration: underline;
     text-decoration-color: $accent;
+  }
+
+  &:hover .post-card__thumb {
+    border-color: $border-lit;
+    img { transform: scale(1.04); }
   }
 
   // Fixed aspect + cover crops arbitrary hero art. Use a frame + contain so
@@ -279,6 +337,7 @@ pre {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    transition: border-color .15s ease;
 
     img {
       max-width: 100%;
@@ -288,6 +347,7 @@ pre {
       object-fit: contain;
       object-position: center;
       display: block;
+      transition: transform .3s ease;
     }
   }
 
@@ -339,8 +399,12 @@ pre {
 
 .post-excerpt {
   font-size: .9rem;
-  color: $muted;
+  color: $dim;
   margin-top: .4rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .rss-subscribe {
@@ -402,6 +466,9 @@ $sidebar-gap:   3rem;
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
 }
 
 .project-list__item {
@@ -412,11 +479,14 @@ $sidebar-gap:   3rem;
   display: block;
   text-decoration: none;
   border: 1px solid $border;
+  border-left: 2px solid $border;
   padding: .75rem .8rem;
-  transition: border-color .12s ease;
+  transition: border-color .12s ease, background-color .12s ease;
 
   &:hover {
-    border-color: $accent;
+    border-color: $border-lit;
+    border-left-color: $accent;
+    background: $surface-2;
   }
 }
 
@@ -488,7 +558,13 @@ $sidebar-gap:   3rem;
 }
 
 .post-content {
-  h2, h3, h4 { font-weight: 500; }
+  h2, h3, h4 { font-weight: 500; position: relative; }
+
+  // First paragraph reads as a lede.
+  > p:first-of-type {
+    font-size: 1.08rem;
+    color: #dcdcdc;
+  }
 
   // MathJax 3: only *display* math is block-level. Do not style all mjx-container
   // as block — that breaks inline $...$ (it would jump to the next line).
@@ -504,6 +580,109 @@ $sidebar-gap:   3rem;
     max-height: 360px;
     width: auto;
     margin: 1.5rem auto;
+    border: 1px solid $border;
+  }
+}
+
+// Anchor links injected next to headings by default.html.
+.heading-anchor {
+  position: absolute;
+  left: -1.1rem;
+  top: 0;
+  color: $accent;
+  text-decoration: none;
+  opacity: 0;
+  font-weight: 400;
+  transition: opacity .12s ease;
+
+  h2:hover &, h3:hover &, &:focus-visible { opacity: 1; }
+
+  @media (max-width: 640px) { display: none; }
+}
+
+// Reading progress bar — thin red line pinned to the top.
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 150;
+  pointer-events: none;
+
+  span {
+    display: block;
+    height: 100%;
+    background: $accent;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    will-change: transform;
+  }
+}
+
+// Back-to-posts link above the post title.
+.post-back {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: $muted;
+  text-decoration: none;
+
+  &:hover { color: $heading; }
+}
+
+.post-meta__sep { color: $border-lit; margin: 0 .15rem; }
+
+// Prev / next navigation at the foot of a post.
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 3.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid $border;
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid $border;
+    text-decoration: none;
+    transition: border-color .15s ease, background-color .15s ease;
+
+    &:hover {
+      border-color: $accent;
+      background: $surface;
+      .post-nav__title { color: #fff; }
+    }
+  }
+
+  &__link--next { text-align: right; }
+
+  &__dir {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: $muted;
+  }
+
+  &__title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 500;
+    font-size: .95rem;
+    color: $heading;
+    line-height: 1.3;
+    transition: color .12s ease;
+  }
+
+  @media (max-width: 540px) {
+    grid-template-columns: 1fr;
+    &__link--next { text-align: left; }
   }
 }
 

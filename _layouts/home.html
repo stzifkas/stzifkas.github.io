@@ -18,7 +18,7 @@ layout: default
             <a class="post-card" href="{{ post.url | relative_url }}">
               {%- if post.image -%}
               <div class="post-card__thumb">
-                <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+                <img src="{{ post.image | relative_url }}" alt="" loading="lazy" decoding="async" width="148" height="99">
               </div>
               {%- endif -%}
               <div class="post-card__body">

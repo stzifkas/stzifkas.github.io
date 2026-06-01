@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    <a class="skip-link" href="#content">Skip to content</a>
+
+    {%- if layout.name == "post" or page.layout == "post" -%}
+      <div class="reading-progress" role="presentation"><span></span></div>
+    {%- endif -%}
+
+    {%- include header.html -%}
+
+    <main class="page-content" id="content" aria-label="Content" tabindex="-1">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </main>
+
+    {%- include footer.html -%}
+
+    <script>
+      (function () {
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Reading progress bar (posts only)
+        var bar = document.querySelector('.reading-progress span');
+        if (bar) {
+          var update = function () {
+            var h = document.documentElement;
+            var max = h.scrollHeight - h.clientHeight;
+            var pct = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+            bar.style.transform = 'scaleX(' + Math.min(1, Math.max(0, pct)) + ')';
+          };
+          window.addEventListener('scroll', update, { passive: true });
+          window.addEventListener('resize', update, { passive: true });
+          update();
+        }
+
+        // Anchor links on post headings
+        var content = document.querySelector('.post-content');
+        if (content) {
+          var slugged = {};
+          content.querySelectorAll('h2, h3').forEach(function (h) {
+            var id = h.id;
+            if (!id) {
+              id = (h.textContent || '').toLowerCase().trim()
+                .replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+              if (slugged[id]) { id = id + '-' + (++slugged[id]); }
+              else { slugged[id] = 1; }
+              h.id = id;
+            }
+            var a = document.createElement('a');
+            a.className = 'heading-anchor';
+            a.href = '#' + id;
+            a.setAttribute('aria-label', 'Link to this section');
+            a.textContent = '#';
+            h.appendChild(a);
+          });
+        }
+      })();
+    </script>
+
+  </body>
+
+</html>
